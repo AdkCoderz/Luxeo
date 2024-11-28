@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Luxeo</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container */
+        .thank-you-container {
+            text-align: center;
+            margin-top: 100px;
+            padding: 50px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in;
+        }
+
+        /* Thank You Message */
+        .thank-you-message {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-out;
+        }
+
+        /* Congratulations Text */
+        .congrats-text {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #333;
+            opacity: 0;
+            animation: fadeInText 1.5s ease-out forwards;
+        }
+
+        /* Button */
+        .thank-you-button {
+            padding: 15px 30px;
+            background-color: #ff7e5f;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .thank-you-button:hover {
+            background-color: #feb47b;
+        }
+
+        /* Animation Effects */
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff7e5f;
+            opacity: 0;
+            animation: confetti-fall 2s infinite ease-in-out;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-50px) rotate(0); opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(600px) rotate(180deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Confetti Animation -->
+    <div class="confetti" id="confetti"></div>
+
+    <!-- Thank You Container -->
+    <div class="thank-you-container">
+        <div class="thank-you-message">
+            🎉 Purchase Successful 🎉
+        </div>
+        <div class="congrats-text">
+            Your purchase was successful! Thank you for shopping with us. We are processing your order and will ship it to you shortly.
+        </div>
+        <button class="thank-you-button" onclick="window.location.href='products.html'">
+            Continue Shopping
+        </button>
+    </div>
+
+    <script>
+        // Confetti Effect - Random Pieces
+        function createConfetti() {
+            const confettiContainer = document.getElementById('confetti');
+            for (let i = 0; i < 100; i++) {
+                const confettiPiece = document.createElement('div');
+                confettiPiece.classList.add('confetti-piece');
+                confettiPiece.style.left = `${Math.random() * 100}%`;
+                confettiPiece.style.animationDuration = `${Math.random() * 3 + 2}s`; // Randomize fall speed
+                confettiPiece.style.animationDelay = `${Math.random() * 2}s`; // Randomize delay before falling
+                confettiContainer.appendChild(confettiPiece);
+            }
+        }
+
+        // Start confetti effect
+        window.onload = function() {
+            createConfetti();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Returns - Luxeo</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Luxeo</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="returns.html" class="active">Returns</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Returns Section -->
+    <main>
+        <section class="returns">
+            <h1>Returns</h1>
+            <p>If you are not satisfied with your purchase, you can request a return.</p>
+            <form action="returns_process.php" method="POST">
+                <input type="text" name="order_id" placeholder="Enter Order ID" required>
+                <textarea name="reason" placeholder="Reason for Return" rows="5" required></textarea>
+                <button type="submit">Submit Return Request</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Luxeo - All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

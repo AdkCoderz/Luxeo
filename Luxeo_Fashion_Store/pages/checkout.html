@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Luxeo</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Checkout Page Styling */
+        .checkout-container {
+            width: 80%;
+            margin: 50px auto;
+        }
+
+        .checkout-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .checkout-summary {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .checkout-summary td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .checkout-summary th {
+            padding: 10px;
+            text-align: left;
+            background-color: #ff7e5f;
+            color: white;
+        }
+
+        .checkout-button {
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Fake Payment Modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            text-align: center;
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            margin-top: 20px;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Luxeo</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="returns.html">Returns</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Checkout Page -->
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h1>Checkout</h1>
+        </div>
+
+        <table class="checkout-summary">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody id="checkoutTable">
+                <!-- Checkout items will be displayed here -->
+            </tbody>
+        </table>
+
+        <!-- Fake Payment Button -->
+        <button class="checkout-button" id="payNowButton">Pay Now</button>
+    </div>
+
+    <!-- Fake Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Processing Payment</h2>
+            </div>
+            <p>Your payment is being processed. Please wait...</p>
+            <div class="modal-footer">
+                <button class="modal-button" id="closeModalButton">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to load checkout items
+        function loadCheckoutItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const checkoutTable = document.getElementById('checkoutTable');
+            checkoutTable.innerHTML = ''; // Clear the table before displaying
+
+            let totalAmount = 0;
+
+            cart.forEach(item => {
+                const row = checkoutTable.insertRow();
+                row.innerHTML = `
+                    <td><img src="${item.img}" alt="${item.name}" style="width: 50px; height: auto;"> ${item.name}</td>
+                    <td>$${item.price}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${item.price * item.quantity}</td>
+                `;
+                totalAmount += item.price * item.quantity;
+            });
+        }
+
+        // Simulate Fake Payment Process
+        document.getElementById('payNowButton').addEventListener('click', function () {
+            // Show the "Processing Payment" modal
+            document.getElementById('paymentModal').style.display = 'block';
+
+            // Simulate payment processing delay
+            setTimeout(() => {
+                // After payment is "processed", redirect to the Thank You page
+                alert('Payment Successful!');
+                localStorage.removeItem('cart'); // Clear the cart
+                window.location.href = "thank_you.html"; // Redirect to thank you page
+            }, 3000); // 3 seconds delay to simulate processing time
+        });
+
+        // Close the payment modal
+        document.getElementById('closeModalButton').addEventListener('click', function () {
+            document.getElementById('paymentModal').style.display = 'none';
+        });
+
+        // Load checkout items when the page loads
+        loadCheckoutItems();
+    </script>
+</body>
+</html>

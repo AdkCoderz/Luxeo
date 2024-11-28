@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Luxeo</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Styling for Login Page */
+        body {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .login-container h1 {
+            font-size: 2rem;
+            color: #ff7e5f;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            padding-left: 40px;  /* Space for the icon */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #ff7e5f;
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 15px; /* Space between icon and left edge */
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 1.2rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #ff7e5f;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background: #feb47b;
+        }
+
+        .login-container p {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .login-container p a {
+            color: #ff7e5f;
+            text-decoration: none;
+        }
+
+        .login-container p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form>
+            <div class="input-group">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="button" onclick="login()">Login</button>
+        </form>
+        <p>Don't have an account? <a href="register.html">Register here</a></p>
+    </div>
+
+<script>
+
+async function login() {
+    // Get the input values
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    
+    // API endpoint for login (replace with your backend URL)
+    const apiUrl = "http://localhost:3000/api/login";
+
+    try {
+        // Make a POST request to the API
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        // console.log(response.ok)
+        
+        // console.log(response.json().token)
+
+        if(response.ok){
+            const data = await response.json();
+            console.log(data.token)
+        }else{
+            console.log("Data not matched");
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+</script>
+</body>
+</html>

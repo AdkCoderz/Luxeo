@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Luxeo</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Cart Page Styling */
+        .cart-container {
+            width: 80%;
+            margin: 50px auto;
+        }
+
+        .cart-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .cart-items {
+            display: table;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .cart-items th, .cart-items td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .cart-items th {
+            background-color: #ff7e5f;
+            color: white;
+        }
+
+        .remove-item {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .remove-item:hover {
+            background-color: #d9534f;
+        }
+
+        .quantity-input {
+            width: 50px;
+            padding: 5px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .checkout-button {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Luxeo</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="returns.html">Returns</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Cart Page -->
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1>Your Cart</h1>
+        </div>
+        <table class="cart-items" id="cartItemsTable">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Cart items will be displayed here dynamically -->
+            </tbody>
+        </table>
+        <button class="checkout-button" id="checkoutButton">Proceed to Checkout</button>
+    </div>
+
+    <script>
+        // Function to load and display cart items
+        function loadCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartTable = document.getElementById('cartItemsTable').getElementsByTagName('tbody')[0];
+            cartTable.innerHTML = ''; // Clear the table before displaying
+
+            cart.forEach((item, index) => {
+                const row = cartTable.insertRow();
+                row.innerHTML = `
+                    <td><img src="${item.img}" alt="${item.name}" style="width: 50px; height: auto;"> ${item.name}</td>
+                    <td>$${item.price}</td>
+                    <td><input type="number" value="1" class="quantity-input" data-index="${index}" /></td>
+                    <td>$${item.price}</td>
+                    <td><button class="remove-item" data-index="${index}">Remove</button></td>
+                `;
+
+                // Handle quantity change
+                row.querySelector('.quantity-input').addEventListener('change', function () {
+                    const quantity = parseInt(this.value, 10);
+                    if (quantity <= 0) {
+                        alert("Quantity can't be zero or negative!");
+                    } else {
+                        updateCartQuantity(index, quantity);
+                    }
+                });
+
+                // Handle item removal
+                row.querySelector('.remove-item').addEventListener('click', function () {
+                    removeItemFromCart(index);
+                });
+            });
+        }
+
+        // Update cart item quantity
+        function updateCartQuantity(index, quantity) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity = quantity;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems(); // Reload items to update totals
+        }
+
+        // Remove item from the cart
+        function removeItemFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems(); // Reload items after removal
+        }
+
+        // Handle Checkout Button
+        document.getElementById('checkoutButton').addEventListener('click', function () {
+            if (confirm('Proceeding to checkout!')) {
+                window.location.href = "checkout.html"; // Redirect to checkout page
+            }
+        });
+
+        // Load cart items when the page loads
+        loadCartItems();
+    </script>
+
+</body>
+</html>

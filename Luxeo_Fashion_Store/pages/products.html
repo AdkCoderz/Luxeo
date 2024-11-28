@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Luxeo</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <style>
+        /* Modal Styling */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Background overlay */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .modal-body p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-footer .add-to-cart {
+            background-color: #ff7e5f;
+            color: white;
+        }
+
+        .modal-footer .buy-now {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        /* Product Grid Styling */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-card p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Buttons Container */
+        .product-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .add-to-cart {
+            padding: 10px 20px;
+            background-color: #ff7e5f;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #feb47b;
+        }
+
+        .buy-now {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .buy-now:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Luxeo</div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="returns.html">Returns</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Products Section -->
+    <main>
+        <section class="product-grid">
+
+            <div class="product-card" onclick="showProductDetails('Trendy Jacket', '../assets/images/product1.jpg', '1,50,990 Rs.', 'A stylish jacket for casual outings.', 'Clothing')">
+                <img src="../assets/images/product1.jpg" alt="Trendy Jacket">
+                <h3>Trendy Jacket</h3>
+                <p>1,50,990 Rs.</p>
+            </div>
+
+            <div class="product-card" onclick="showProductDetails('Summer Dress', '../assets/images/product2.jpg', '17,999 Rs.', 'A breezy dress for sunny days.', 'Clothing')">
+                <img src="../assets/images/product2.jpg" alt="Summer Dress">
+                <h3>Summer Dress</h3>
+                <p>17,999 Rs.</p>
+            </div>
+
+            <div class="product-card" onclick="showProductDetails('Stylish Sunglasses', '../assets/images/product3.jpg', '75,699 Rs.', 'Protect your eyes in style with these sunglasses.', 'Accessories')">
+                <img src="../assets/images/product3.jpg" alt="Stylish Sunglasses">
+                <h3>Stylish Sunglasses</h3>
+                <p>75,699 Rs.</p>
+            </div>
+
+            <div class="product-card" onclick="showProductDetails('Luxury Watch', '../assets/images/product4.jpg', '17,99,999 Rs.', 'A premium watch for every occasion.', 'Accessories')">
+                <img src="../assets/images/product4.jpg" alt="Luxury Watch">
+                <h3>Luxury Watch</h3>
+                <p>17,99,999 Rs.</p>
+            </div>
+
+            <div class="product-card" onclick="showProductDetails('Smartphone', '../assets/images/product5.jpg', '20,00,000 Rs', 'A high-tech smartphone with diamond worksamazing features.', 'Electronics')">
+                <img src="../assets/images/product5.jpg" alt="Smartphone">
+                <h3>Smartphone</h3>
+                <p>20,00,000 Rs</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('T-Shirt', '../assets/images/product6.jpg', '12,999 Rs.', 'A basic t-shirt for casual wear.', 'Clothing')">
+                <img src="../assets/images/product6.jpg" alt="T-Shirt">
+                <h3>Basic T-Shirt</h3>
+                <p>12,999 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Leather Backpack', '../assets/images/product7.jpg', '19,999 Rs.', 'A durable leather backpack for everyday use.', 'Accessories')">
+                <img src="../assets/images/product7.jpg" alt="Leather Backpack">
+                <h3>Leather Backpack</h3>
+                <p>19,999 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Running Shoes', '../assets/images/product8.jpg', '1,20,999 Rs.', 'Comfortable running shoes for active lifestyle.', 'Footwear')">
+                <img src="../assets/images/product8.jpg" alt="Running Shoes">
+                <h3>Running Shoes</h3>
+                <p>1,20,999 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Wireless Headphones', '../assets/images/product9.jpg', '28,999 Rs.', 'High-quality wireless headphones with great sound.', 'Electronics')">
+                <img src="../assets/images/product9.jpg" alt="Wireless Headphones">
+                <h3>Wireless Headphones</h3>
+                <p>28,999 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Cozy Sweater', '../assets/images/product10.jpg', '15,999 Rs.', 'Warm and cozy sweater for the cold weather.', 'Clothing')">
+                <img src="../assets/images/product10.jpg" alt="Cozy Sweater">
+                <h3>Cozy Sweater</h3>
+                <p>15,999 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Classic Watch', '../assets/images/product11.jpg', '8,15,000 Rs.', 'A timeless watch design.', 'Accessories')">
+                <img src="../assets/images/product11.jpg" alt="Classic Watch">
+                <h3>Classic Watch</h3>
+                <p>8,15,000 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Leather Boots', '../assets/images/product12.jpg', '25,000 Rs.', 'Premium leather boots for the winter season.', 'Footwear')">
+                <img src="../assets/images/product12.jpg" alt="Leather Boots">
+                <h3>Leather Boots</h3>
+                <p>25,000 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Smart Watch', '../assets/images/product13.jpg', '99,999 Rs.', '22 Carat Gold Smartwatch with fitness tracking features.', 'Electronics')">
+                <img src="../assets/images/product13.jpg" alt="Smart Watch">
+                <h3>Smart Watch</h3>
+                <p>99,999 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Jean Jacket', '../assets/images/product14.jpg', '24,999 Rs.', 'Stylish jean jacket for a casual look.', 'Clothing')">
+                <img src="../assets/images/product14.jpg" alt="Jean Jacket">
+                <h3>Jean Jacket</h3>
+                <p>24,999 Rs.</p>
+            </div>
+
+            <div class="product-card"
+                onclick="showProductDetails('Sunglasses', '../assets/images/product15.jpg', '45,990 Rs.', 'Sunglasses with UV protection for sunny days.', 'Accessories')">
+                <img src="../assets/images/product15.jpg" alt="Sunglasses">
+                <h3>Sunglasses</h3>
+                <p>45,990 Rs.</p>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Product Details</h2>
+            </div>
+            <div class="modal-body">
+                <img id="productImage" src="" alt="Product Image">
+                <p id="productDescription"></p>
+                <p id="productPrice"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+                <button class="buy-now" onclick="window.location.href='checkout.html'">Buy Now</button>
+                <button class="close-modal" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Show product details in the modal
+        function showProductDetails(name, image, price, description, category) {
+            document.getElementById('productImage').src = image;
+            document.getElementById('productDescription').innerText = description;
+            document.getElementById('productPrice').innerText = price;
+            document.getElementById('productModal').style.display = 'block';
+        }
+
+        // Close the modal
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Close the modal if clicked outside of the modal content
+        window.onclick = function (event) {
+            if (event.target === document.getElementById('productModal')) {
+                closeModal();
+            }
+        }
+    </script>
+    <script src="assets/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+</body>
+
+</html>
